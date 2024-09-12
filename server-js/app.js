@@ -67,7 +67,7 @@ const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
  */
 app.post("/chat", async (req, res) => {
     /** Read the request data. */
-    const chatHistory = req.body.history;
+    const chatHistory = req.body.history || [];
     const msg = req.body.chat;
     
     /** Initialize the chat with the given history. */

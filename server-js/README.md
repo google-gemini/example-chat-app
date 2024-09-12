@@ -18,25 +18,6 @@ You can quickly install the required packages using the `package.json` file.
 1. Navigate to the app directory, `chat-js` (i.e. where package.json is located).
 2. Run `npm install`. This will install all the required packages mentioned in `packages.json`.
 
-If you don't want to use the `package.json` file, you can install the files manually.
-#### Install manually(without `package.json`)
-Install express
-```
-npm install express
-```
-
-Install the Gemini API SDK
-```
-npm install @google/generative-ai
-```
-Install CORS package
-```
-npm install cors
-```
-
-
-
-
 ## Configuration
 1. Navigate to the app directory, `chat-js`
 2. Copy the `.env.example` file to `.env`:
