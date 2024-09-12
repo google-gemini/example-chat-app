@@ -19,7 +19,7 @@ You can quickly install the required packages using the `package.json` file.
 2. Run `npm install`. This will install all the required packages mentioned in `packages.json`.
 
 ## Configuration
-1. Navigate to the app directory, `chat-js`
+1. Navigate to the app directory, `server-js`
 2. Copy the `.env.example` file to `.env`:
 ```
 cp .env.example .env
@@ -27,7 +27,7 @@ cp .env.example .env
 3. If you don't have a Gemini API key ready, you can create a key with one click in [Google AI Studio](https://aistudio.google.com/app/apikey).
 4. Add the Gemini API key to the variable `GOOGLE_API_KEY` in the `.env` file.
    ```
-   GOOGLE_API_KEY=AxxxxxxxxxxxxxxPko
+   GOOGLE_API_KEY=<your_api_key>
    ```
 
 ## Run the app
