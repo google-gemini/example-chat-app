@@ -106,7 +106,7 @@ app.post("/chat", async (req, res) => {
  */
 app.post("/stream", async (req, res) => {
     /** Read the request data. */
-    const chatHistory = req.body.history;
+    const chatHistory = req.body.history || [];
     const msg = req.body.chat;
   
     /** Initialize the chat with history. */

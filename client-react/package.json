@@ -1,0 +1,46 @@
+{
+  "name": "chat-app",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^6.6.0",
+    "@fortawesome/free-solid-svg-icons": "^6.6.0",
+    "@fortawesome/react-fontawesome": "^0.2.2",
+    "@testing-library/jest-dom": "^5.17.0",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^13.5.0",
+    "@vitejs/plugin-react": "^4.3.1",
+    "axios": "^1.7.4",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-markdown": "^9.0.1",
+    "react-scripts": "^5.0.1",
+    "vite": "^5.4.6",
+    "web-vitals": "^2.1.4"
+  },
+  "scripts": {
+    "start": "vite --port 3000",
+    "build": "tsc && vite build",
+    "serve": "vite --port 3000",
+    "dev": "vite --port 3000"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
