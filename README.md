@@ -58,7 +58,7 @@ This is the <b>non-streaming</b> POST method route. Use this to send the chat me
 </table>
 <h4>Response</h4>
 <table class="responsive fixed orange">
-<tr><td><h5>HTTTP code </h5></td><td><h5>Content-Type</h5></td><td><h5>Response</h5></td></tr>
+<tr><td><h5>HTTP code </h5></td><td><h5>Content-Type</h5></td><td><h5>Response</h5></td></tr>
 <tr><td>200</td><td>application/json</td><td>{"text": string}</td></tr>
 </table>
 </td>
@@ -80,7 +80,7 @@ This is the <b>streaming</b> POST method route. Use this to send the chat messag
 </table>
 <h4>Response</h4>
 <table class="responsive fixed orange">
-<tr><td><h5>HTTTP code </h5></td><td><h5>Content-Type</h5></td><td><h5>Response</h5></td></tr>
+<tr><td><h5>HTTP code </h5></td><td><h5>Content-Type</h5></td><td><h5>Response</h5></td></tr>
 <tr><td>200</td><td>application/json</td><td>string</td></tr>
 </table>
 </td>
