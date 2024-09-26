@@ -98,7 +98,7 @@ chmod +x setup.sh
 ```
 #### Installation options
 
-You can choose to the install required packages for 
+You can choose to install the required packages for
 - Frontend(React) plus a backend server of your choice(Flask or Node.js).
 - Frontend(React) and both backend servers(Flask, and Node.js).
 
