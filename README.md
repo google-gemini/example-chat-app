@@ -19,6 +19,7 @@
   - [Run backend server](#run-backend-server)
     - [Configure and run Node.js backend](#configure-and-run-nodejs-backend)
     - [Configure and run Python/Flask backend](#configure-and-run-pythonflask-backend)
+    - [Configure and run Go backend](#configure-and-run-go-backend)
 - [Usage](#usage)
 
 ## Intro
