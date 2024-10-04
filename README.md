@@ -257,7 +257,7 @@ You must set the API key as an environment variable while running the applicatio
 
 ###### Running the Application
 1. Navigate to the app directory, `server-go` (i.e. where main.go is located).
-2. Run the application using the following command:
+2. Run the application using the following command.
 ```
 GOOGLE_API_KEY=<your_api_key> go run .
 ```
