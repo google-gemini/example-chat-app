@@ -33,24 +33,25 @@ const modelName = "gemini-1.5-flash"
 const defaultPort = "9000"
 
 // Server state holding the context of the Gemini client and the generative model.
-type geminiServer struct {
+type genaiServer struct {
 	ctx   context.Context
 	model *genai.GenerativeModel
 }
 
 func main() {
 	ctx := context.Background()
+
 	// Access your API key as an environment variable to create a client.
 	apiKey := os.Getenv("GOOGLE_API_KEY")
 	client, err := genai.NewClient(ctx, option.WithAPIKey(apiKey))
 	if err != nil {
-		log.Fatalf("Could not create Gemini client %v", err)
+		log.Fatalf("could not create Gemini client %v", err)
 	}
 	defer client.Close()
 
 	model := client.GenerativeModel(modelName)
 
-	server := &geminiServer{
+	server := &genaiServer{
 		ctx:   ctx,
 		model: model,
 	}
@@ -64,7 +65,6 @@ func main() {
 		AllowedOrigins: []string{"*"},
 		AllowedHeaders: []string{"Access-Control-Allow-Origin", "Content-Type"},
 	})
-
 	handler := c.Handler(mux)
 
 	// Access preferred port the server must listen to as an environment variable if provided.
@@ -74,20 +74,26 @@ func main() {
 	log.Fatal(http.ListenAndServe(addr, handler))
 }
 
+// part is a piece of model content. It can hold only text pieces. Each item in the `Parts` of a
+// JSON-encoded content in a history array must comply to it.
 type part struct {
+	// Piece of model content.
 	Text string
 }
 
-// content is the structure to which each item in the incoming JSON-encoded history must comply to.
+// content is the structure to which each item in the incoming JSON-encoded history array must
+// comply to.
 type content struct {
-	Role  string
+	// The producer of the content. Must be either 'user' or 'model'.
+	Role string
+	// Ordered `Parts` that constitute a single message.
 	Parts []part
 }
 
 // chatRequest is the structure to which the incoming JSON-encoded value in the response body is
 // decoded.
 type chatRequest struct {
-	// The query from the user to the model and the history
+	// The query from the user to the model.
 	Chat string
 	// The history of the conversation between the user and the model in the current session.
 	History []content
@@ -97,12 +103,12 @@ type chatRequest struct {
 // the request with the following format:
 // Request:
 //   - chat: string
-//   - history: Array
+//   - history: []
 //
 // Returns a JSON payload containing the model response with the following format.
 // Response:
 //   - text: string
-func (gs *geminiServer) chatHandler(w http.ResponseWriter, r *http.Request) {
+func (gs *genaiServer) chatHandler(w http.ResponseWriter, r *http.Request) {
 	cr := &chatRequest{}
 	if err := parseRequestJSON(r, cr); err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
@@ -128,10 +134,10 @@ func (gs *geminiServer) chatHandler(w http.ResponseWriter, r *http.Request) {
 // JSON payload in the request with the following format:
 // Request:
 //   - chat: string,
-//   - history: Array,
+//   - history: [],
 //
-// A partial response from the model is text.
-func (gs *geminiServer) streamingChatHandler(w http.ResponseWriter, r *http.Request) {
+// A partial response from the model contains a piece of text.
+func (gs *genaiServer) streamingChatHandler(w http.ResponseWriter, r *http.Request) {
 	cr := &chatRequest{}
 	if err := parseRequestJSON(r, cr); err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
@@ -149,13 +155,13 @@ func (gs *geminiServer) streamingChatHandler(w http.ResponseWriter, r *http.Requ
 			break
 		}
 		if err != nil {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
+			log.Println(err)
 			break
 		}
 
 		resTxt, err := responseString(res)
 		if err != nil {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
+			log.Println(err)
 			break
 		}
 
@@ -167,24 +173,24 @@ func (gs *geminiServer) streamingChatHandler(w http.ResponseWriter, r *http.Requ
 }
 
 // startChat starts a chat session with the model using the given history.
-func (gs *geminiServer) startChat(hist []content) *genai.ChatSession {
+func (gs *genaiServer) startChat(hist []content) *genai.ChatSession {
 	cs := gs.model.StartChat()
-	cs.History = encodeHistory(hist)
+	cs.History = transform(hist)
 	return cs
 }
 
-// encodeHistory converts []content to a []*genai.Content that is accepted by the model's chat session.
-func encodeHistory(cs []content) []*genai.Content {
+// transform converts []content to a []*genai.Content that is accepted by the model's chat session.
+func transform(cs []content) []*genai.Content {
 	gcs := make([]*genai.Content, len(cs))
 	for i, c := range cs {
-		gcs[i] = c.geminiCompatible()
+		gcs[i] = c.transform()
 	}
 
 	return gcs
 }
 
-// geminiCompatible converts content to genai.Content accepted by the chat session.
-func (c *content) geminiCompatible() *genai.Content {
+// transform converts content to genai.Content that is accepted by the model's chat session.
+func (c *content) transform() *genai.Content {
 	gc := &genai.Content{}
 	gc.Role = c.Role
 	ps := make([]genai.Part, len(c.Parts))
@@ -195,11 +201,11 @@ func (c *content) geminiCompatible() *genai.Content {
 	return gc
 }
 
-// responseString parses the model response of type genai.GenerateContentResponse to a string.
-func responseString(resp *genai.GenerateContentResponse) (string, error) {
+// responseString converts the model response of type genai.GenerateContentResponse to a string.
+func responseString(res *genai.GenerateContentResponse) (string, error) {
 	// Only taking the first candidate since GenerationConfig.CandidateCount defaults to 1.
-	if len(resp.Candidates) > 0 {
-		if cs := contentString(resp.Candidates[0].Content); cs != nil {
+	if len(res.Candidates) > 0 {
+		if cs := contentString(res.Candidates[0].Content); cs != nil {
 			return *cs, nil
 		}
 	}
@@ -207,21 +213,22 @@ func responseString(resp *genai.GenerateContentResponse) (string, error) {
 	return "", fmt.Errorf("invalid response from Gemini model")
 }
 
-// contentString converts genai.Content to a string.
+// contentString converts genai.Content to a string. If the parts in the input content are of type
+// text, they are concatenated with new lines in between them to form a string.
 func contentString(c *genai.Content) *string {
 	if c == nil || c.Parts == nil {
 		return nil
 	}
 
-	contStrs := make([]string, len(c.Parts))
+	cStrs := make([]string, len(c.Parts))
 	for i, part := range c.Parts {
 		if pt, ok := part.(genai.Text); ok {
-			contStrs[i] = string(pt)
+			cStrs[i] = string(pt)
 		} else {
 			return nil
 		}
 	}
 
-	contStr := strings.Join(contStrs, "\n")
-	return &contStr
+	cStr := strings.Join(cStrs, "\n")
+	return &cStr
 }
