@@ -1,7 +1,7 @@
 # Gemini chat app with Go
 
 ## Install Go
-To run this app, Go must be installed on your system.
+To run this server, Go must be installed on your system.
 Check if Go is already installed.
 ```
 go version
@@ -14,7 +14,7 @@ You need a Gemini API key to run the server,
 If you don't have a Gemini API key ready, you can create a key with one click in [Google AI Studio](https://aistudio.google.com/app/apikey).
 
 1. Navigate to the app directory, `server-go` (i.e. where main.go is located).
-2. Run the application with the following command:
+2. Run the application with the following command.
 ```
 GOOGLE_API_KEY=<your_api_key> PORT=<your_port> go run .
 ```
