@@ -168,6 +168,14 @@ You can quickly install the required packages using the `package.json` file.
 pip install -r requirements.txt
 ```
 
+#### Go installation
+
+Check if Go is already installed.
+```
+go version
+```
+If Go is not installed, follow the instructions for your operating system from the [official Go installation guide](https://go.dev/doc/install).
+
 ## Run the app
 To launch the app you have to perform the following steps:
 1. Run React client
