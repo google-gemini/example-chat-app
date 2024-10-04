@@ -16,7 +16,7 @@ If you don't have a Gemini API key ready, you can create a key with one click in
 1. Navigate to the app directory, `server-go` (i.e. where main.go is located).
 2. Run the application with the following command:
 ```
-GOOGLE_API_KEY=<your_api_key> PORT=<your_port> go run.
+GOOGLE_API_KEY=<your_api_key> PORT=<your_port> go run .
 ```
 
 ## Environment Variables

@@ -250,7 +250,7 @@ You must set the API key as an environment variable while running the applicatio
 1. Navigate to the app directory, `server-go` (i.e. where main.go is located).
 2. Run the application using the following command:
 ```
-GOOGLE_API_KEY=<your_api_key> go run.
+GOOGLE_API_KEY=<your_api_key> go run .
 ```
 The server will start on `localhost:9000`.
 By default, the app will run on port 9000. You can modify the port the server listens on by setting the environment variable `PORT`.
