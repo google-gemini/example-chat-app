@@ -238,6 +238,22 @@ python app.py
 ```
 The server will start on `localhost:9000`.
 
+##### Configure and run Go backend
+###### Configuration
+You need a Gemini API key to run the server,
+
+If you don't have a Gemini API key ready, you can create a key with one click in [Google AI Studio](https://aistudio.google.com/app/apikey).
+You must set the API key as an environment variable while running the application.
+
+###### Running the Application
+1. Navigate to the app directory, `server-go` (i.e. where main.go is located).
+2. Run the application using the following command:
+```
+GOOGLE_API_KEY=<your_api_key> go run.
+```
+The server will start on `localhost:9000`.
+By default, the app will run on port 9000. You can modify the port the server listens to by setting the environment variable `PORT`.
+
 ## Usage
 To start using the app, visit [http://localhost:3000](http://localhost:3000/)
 
