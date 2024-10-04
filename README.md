@@ -92,7 +92,7 @@ This is the <b>streaming</b> POST method route. Use this to send the chat messag
 ## Installation
 Click [here](#windows) to skip to installation on Windows.
 
-If your choice of backend is Node.js/Flask, for Linux/macOS a setup bash script is available for easy installation. The bash script does not support installation of Go. If you wish to use Go as your backend or prefer installing manually you can skip to the [next section](#install-manuallylinuxmacoswindows).
+If your choice of backend is Node.js or Flask, for Linux/macOS a setup bash script is available for easy installation. The bash script does not support installation of Go. If you wish to use Go as your backend or prefer installing manually you can skip to the [next section](#install-manuallylinuxmacoswindows).
 ### Using bash script with Node.js/Flask on Linux/macOS
 #### Make the script executable
 ```
