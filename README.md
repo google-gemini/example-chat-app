@@ -9,7 +9,7 @@
 - [Intro](#intro)
 - [API documentation](#api-documentation)
 - [Installation](#installation)
-  - [Using bash script for Node.js/Flask on Linux/macOS](##using-bash-script-for-nodejsflask-on-linuxmacos)
+  - [Using bash script for Node.js/Flask on Linux/macOS](#using-bash-script-for-nodejsflask-on-linuxmacos)
   - [Install manually(Linux/macOS/Windows)](#install-manuallylinuxmacoswindows)
     - [nvm(Node Version Manager) installation](#nvmnode-version-manager-installation)
     - [Node.js installation](#nodejs-installation)
