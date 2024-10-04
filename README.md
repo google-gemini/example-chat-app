@@ -14,6 +14,7 @@
     - [nvm(Node Version Manager) installation](#nvmnode-version-manager-installation)
     - [Node.js installation](#nodejs-installation)
     - [Flask installation](#flask-installation)
+    - [Go installation](#go-installation)
 - [Run the app](#run-the-app)
   - [Run React client](#run-react-client)
   - [Run backend server](#run-backend-server)
