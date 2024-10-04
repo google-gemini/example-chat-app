@@ -252,7 +252,7 @@ You must set the API key as an environment variable while running the applicatio
 GOOGLE_API_KEY=<your_api_key> go run.
 ```
 The server will start on `localhost:9000`.
-By default, the app will run on port 9000. You can modify the port the server listens to by setting the environment variable `PORT`.
+By default, the app will run on port 9000. You can modify the port the server listens on by setting the environment variable `PORT`.
 
 ## Usage
 To start using the app, visit [http://localhost:3000](http://localhost:3000/)

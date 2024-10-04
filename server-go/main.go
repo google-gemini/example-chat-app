@@ -17,7 +17,7 @@ import (
 const modelName = "gemini-1.5-flash"
 const defaultPort = "9000"
 
-// Server state holding the context of the gemini client and the generative model.
+// Server state holding the context of the Gemini client and the generative model.
 type geminiServer struct {
 	ctx   context.Context
 	model *genai.GenerativeModel
@@ -100,7 +100,7 @@ func (gs *geminiServer) chatHandler(w http.ResponseWriter, r *http.Request) {
 //   - chat: string,
 //   - history: Array,
 //
-// Partial responses from the model is text.
+// A partial response from the model is text.
 func (gs *geminiServer) streamingChatHandler(w http.ResponseWriter, r *http.Request) {
 	cr := &chatRequest{}
 	if err := parseRequestJSON(r, cr); err != nil {
@@ -143,7 +143,7 @@ func (gs *geminiServer) startChat(hist []content) *genai.ChatSession {
 	return cs
 }
 
-// encodeHistory converts []content to a []*genai.Content which is accepted by the model's chat session.
+// encodeHistory converts []content to a []*genai.Content that is accepted by the model's chat session.
 func encodeHistory(cs []content) []*genai.Content {
 	gcs := make([]*genai.Content, len(cs))
 	for i, c := range cs {
