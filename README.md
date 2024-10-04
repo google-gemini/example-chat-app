@@ -171,7 +171,7 @@ pip install -r requirements.txt
 
 #### Go installation
 
-Check if Go is already installed.
+Check if Go is already installed on your system.
 ```
 go version
 ```
