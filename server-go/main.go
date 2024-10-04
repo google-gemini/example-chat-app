@@ -24,6 +24,7 @@ import (
 	"strings"
 
 	"github.com/google/generative-ai-go/genai"
+	"github.com/rs/cors"
 	"google.golang.org/api/iterator"
 	"google.golang.org/api/option"
 )
@@ -58,22 +59,37 @@ func main() {
 	mux.HandleFunc("POST /chat", server.chatHandler)
 	mux.HandleFunc("POST /stream", server.streamingChatHandler)
 
+	// Add CORS middleware handler.
+	c := cors.New(cors.Options{
+		AllowedOrigins: []string{"*"},
+		AllowedHeaders: []string{"Access-Control-Allow-Origin", "Content-Type"},
+	})
+
+	handler := c.Handler(mux)
+
 	// Access preferred port the server must listen to as an environment variable if provided.
 	port := cmp.Or(os.Getenv("PORT"), defaultPort)
 	addr := "localhost:" + port
 	log.Println("Listening on ", addr)
-	log.Fatal(http.ListenAndServe(addr, mux))
+	log.Fatal(http.ListenAndServe(addr, handler))
 }
 
 type part struct {
 	Text string
 }
+
+// content is the structure to which each item in the incoming JSON-encoded history must comply to.
 type content struct {
 	Role  string
 	Parts []part
 }
+
+// chatRequest is the structure to which the incoming JSON-encoded value in the response body is
+// decoded.
 type chatRequest struct {
-	Chat    string
+	// The query from the user to the model and the history
+	Chat string
+	// The history of the conversation between the user and the model in the current session.
 	History []content
 }
 
@@ -105,7 +121,7 @@ func (gs *geminiServer) chatHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	renderResponseJSON(w, part{Text: resTxt})
+	renderResponseJSON(w, map[string]string{"text": resTxt})
 }
 
 // streamingChatHandler continuously streams the response of the model to the client. Expects a
