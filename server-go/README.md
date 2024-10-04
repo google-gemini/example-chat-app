@@ -1,7 +1,7 @@
 # Gemini chat app with Go
 
 ## Install Go
-To run this app, Go must be installed on your system.
+To run this server, Go must be installed on your system.
 Check if Go is already installed.
 ```
 go version
