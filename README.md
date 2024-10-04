@@ -35,7 +35,7 @@ Streaming mode uses Gemini's streaming capability to achieve faster interactions
 The client for this app is written using [React](https://react.dev/) and served using [Vite](https://github.com/vitejs/vite).
 
 ### Backend
-The app currently has 2 different backend servers that the user can choose from, [Flask](https://flask.palletsprojects.com/en/3.0.x/quickstart/) and [Node.js](https://Node.js.org/en).
+The app currently has 3 different backend servers that the user can choose from, [Flask](https://flask.palletsprojects.com/en/3.0.x/quickstart/), [Node.js](https://Node.js.org/en) or [Go](https://go.dev)
 
 ## API documentation
 ### Endpoints available
