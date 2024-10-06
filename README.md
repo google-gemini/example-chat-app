@@ -9,16 +9,18 @@
 - [Intro](#intro)
 - [API documentation](#api-documentation)
 - [Installation](#installation)
-  - [Using bash script(Linux/macOS)](#using-bash-scriptlinuxmacos)
+  - [Using bash script for Node.js/Flask on Linux/macOS](#using-bash-script-for-nodejsflask-on-linuxmacos)
   - [Install manually(Linux/macOS/Windows)](#install-manuallylinuxmacoswindows)
     - [nvm(Node Version Manager) installation](#nvmnode-version-manager-installation)
     - [Node.js installation](#nodejs-installation)
     - [Flask installation](#flask-installation)
+    - [Go installation](#go-installation)
 - [Run the app](#run-the-app)
   - [Run React client](#run-react-client)
   - [Run backend server](#run-backend-server)
     - [Configure and run Node.js backend](#configure-and-run-nodejs-backend)
     - [Configure and run Python/Flask backend](#configure-and-run-pythonflask-backend)
+    - [Configure and run Go backend](#configure-and-run-go-backend)
 - [Usage](#usage)
 
 ## Intro
@@ -33,7 +35,7 @@ Streaming mode uses Gemini's streaming capability to achieve faster interactions
 The client for this app is written using [React](https://react.dev/) and served using [Vite](https://github.com/vitejs/vite).
 
 ### Backend
-The app currently has 2 different backend servers that the user can choose from, [Flask](https://flask.palletsprojects.com/en/3.0.x/quickstart/) and [Node.js](https://Node.js.org/en).
+The app currently has 3 different backend servers that the user can choose from, [Flask](https://flask.palletsprojects.com/en/3.0.x/quickstart/), [Node.js](https://Node.js.org/en) or [Go](https://go.dev)
 
 ## API documentation
 ### Endpoints available
@@ -90,8 +92,8 @@ This is the <b>streaming</b> POST method route. Use this to send the chat messag
 ## Installation
 Click [here](#windows) to skip to installation on Windows.
 
-For Linux/macOS a setup bash script is available for easy installation. If you prefer installing manually you can skip to [next section](#install-manuallylinuxmacoswindows).
-### Using bash script(Linux/macOS)
+If your choice of backend is Node.js or Flask, for Linux/macOS a setup bash script is available for easy installation. The bash script does not support installation of Go. If you wish to use Go as your backend or prefer installing manually, you can skip to the [next section](#install-manuallylinuxmacoswindows).
+### Using bash script for Node.js/Flask on Linux/macOS
 #### Make the script executable
 ```
 chmod +x setup.sh
@@ -167,6 +169,14 @@ You can quickly install the required packages using the `package.json` file.
 pip install -r requirements.txt
 ```
 
+#### Go installation
+
+Check if Go is already installed on your system.
+```
+go version
+```
+If Go is not installed, follow the instructions for your operating system from the [official Go installation guide](https://go.dev/doc/install).
+
 ## Run the app
 To launch the app you have to perform the following steps:
 1. Run React client
@@ -237,6 +247,22 @@ Run the application with the following command.
 python app.py
 ```
 The server will start on `localhost:9000`.
+
+##### Configure and run Go backend
+###### Configuration
+You need a Gemini API key to run the server,
+
+If you don't have a Gemini API key ready, you can create a key with one click in [Google AI Studio](https://aistudio.google.com/app/apikey).
+You must set the API key as an environment variable while running the application.
+
+###### Running the Application
+1. Navigate to the app directory, `server-go` (i.e. where main.go is located).
+2. Run the application with the following command.
+```
+GOOGLE_API_KEY=<your_api_key> go run .
+```
+The server will start on `localhost:9000`.
+By default, the server starts on port 9000. You can override the default port the server listens on by setting the environment variable `PORT` in the command above.
 
 ## Usage
 To start using the app, visit [http://localhost:3000](http://localhost:3000/)
