@@ -74,13 +74,12 @@ func main() {
 	log.Fatal(http.ListenAndServe(addr, handler))
 }
 
-// chatRequest is the structure to which the incoming JSON-encoded value in the response body is
-// decoded.
-type chatRequest struct {
-	// The query from the user to the model.
-	Chat string
-	// The history of the conversation between the user and the model in the current session.
-	History []content
+// part is a piece of model content or user query. It can hold only text pieces. An item in the JSON
+// encoded history array based on the role it represents (user / model) holds a single model
+// response / user query as an ordered array of text chunks. Each item in this array must comply to part.
+type part struct {
+	// Piece of model content or user query.
+	Text string
 }
 
 // content is the structure to which each item in the incoming JSON-encoded history array must
@@ -92,12 +91,13 @@ type content struct {
 	Parts []part
 }
 
-// part is a piece of model content or user query. It can hold only text pieces. An item in the JSON
-// encoded history array based on the role it represents (user / model) holds a single model
-// response / user query as an ordered array of text chunks. Each item in this array must comply to part.
-type part struct {
-	// Piece of model content or user query.
-	Text string
+// chatRequest is the structure to which the incoming JSON-encoded value in the response body is
+// decoded.
+type chatRequest struct {
+	// The query from the user to the model.
+	Chat string
+	// The history of the conversation between the user and the model in the current session.
+	History []content
 }
 
 // chatHandler returns the complete response of the model to the client. Expects a JSON payload in
