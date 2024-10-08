@@ -74,10 +74,11 @@ func main() {
 	log.Fatal(http.ListenAndServe(addr, handler))
 }
 
-// part is a piece of model content. It can hold only text pieces. Each item in the `Parts` of a
-// JSON-encoded content in a history array must comply to it.
+// part is a piece of model content or user query. It can hold only text pieces. An item in the JSON
+// encoded history array based on the role it represents (user / model) holds a single model
+// response / user query as an ordered array of text chunks. Each item in this array must comply to part.
 type part struct {
-	// Piece of model content.
+	// Piece of model content or user query.
 	Text string
 }
 
@@ -105,7 +106,7 @@ type chatRequest struct {
 //   - chat: string
 //   - history: []
 //
-// Returns a JSON payload containing the model response with the following format.
+// Sends a JSON payload containing the model response to the client with the following format.
 // Response:
 //   - text: string
 func (gs *genaiServer) chatHandler(w http.ResponseWriter, r *http.Request) {
