@@ -1,24 +1,21 @@
-# Gemini chat app
-<p float="left">
-  <img src="assets/images/welcome-screen.png" width="45%" />
-  <img src="assets/images/chat-screen.png" width="45%" /> 
-</p>
+# Gemini API chat app
 
 ## Table of Contents
 
 - [Intro](#intro)
-- [API documentation](#api-documentation)
 - [Installation](#installation)
-  - [Node.js installation](#nodejs-installation)
-  - [Python installation](#python-installation)
-  - [Go installation](#go-installation)
+  - [(Option 1) Node.js installation](#option-1-nodejs-installation)
+  - [(Option 2) Python installation](#option-2-python-installation)
+  - [(Option 3) Go installation](#option-3-go-installation)
 - [Run the app](#run-the-app)
-  - [Run React client](#run-react-client)
-  - [Run backend server](#run-backend-server)
-    - [Configure and run Node.js backend](#configure-and-run-nodejs-backend)
-    - [Configure and run Python/Flask backend](#configure-and-run-pythonflask-backend)
-    - [Configure and run Go backend](#configure-and-run-go-backend)
+  - [Run the React client](#run-the-react-client)
+  - [Run a backend server](#run-a-backend-server)
+    - [Get an API key](#get-an-api-key)
+    - [(Option 1) Configure and run the Node.js backend](#option-1-configure-and-run-the-nodejs-backend)
+    - [(Option 2) Configure and run the Python backend](#option-2-configure-and-run-the-python-backend)
+    - [(Option 3) Configure and run the Go backend](#option-3-configure-and-run-the-go-backend)
 - [Usage](#usage)
+- [API documentation](#api-documentation)
 
 ## Intro
 
@@ -45,30 +42,32 @@ There are three implementations of the backend server to choose from:
   server, which demonstrates the
   [Gemini API Python SDK](https://github.com/google-gemini/generative-ai-python)
 * A Node.js server, which demonstrates the
-  [Gemini API JavaScript SDK](https://github.com/google-gemini/generative-ai-js).
+  [Gemini API JavaScript SDK](https://github.com/google-gemini/generative-ai-js)
 * A Go server, which demonstrates the
-  [Gemini API Go SDK](https://github.com/google/generative-ai-go) 
+  [Gemini API Go SDK](https://github.com/google/generative-ai-go)
+
+You only need to install and run *one* of the backends. If you want to try more
+than one, keep in mind that they all default to running on the same port.
 
 ## Installation
 
 Follow the installation instructions for one of the backend servers (Node.js,
 Python, or Go).
 
-### Node.js installation
+### (Option 1) Node.js installation
 
 Before running the installation steps, make sure that Node.js v18+ and npm are
 installed in your development environment.
-
-You can quickly install the required packages using the `package.json` file. 
+ 
 1. Navigate to the app directory, `server-js` (i.e. where `package.json` is
    located).
-2. Run `npm install`. This will install all the required packages mentioned in
-   `package.json`.
+2. Run `npm install`.
 
-### Python installation
+### (Option 2) Python installation
 
 Before running the installation steps, make sure that Python 3.9+ is installed
-in your development environment.
+in your development environment. Then navigate to the app directory,
+`server-python`, and complete the installation.
 
 #### Create a virtual environment
 
@@ -94,25 +93,26 @@ python -m venv venv
 pip install -r requirements.txt
 ```
 
-### Go installation
+### (Option 3) Go installation
 
-Check if Go is already installed on your system.
+Check if Go 1.20+ is installed on your system.
 
 ```
 go version
 ```
 
-If Go is not installed, follow the instructions for your operating system from
-the [Go installation guide](https://go.dev/doc/install).
+If Go 1.20+ is not installed, follow the instructions for your operating system
+from the [Go installation guide](https://go.dev/doc/install). The backend
+dependencies will be installed when you run the app.
 
 ## Run the app
 
-To launch the app you have to perform the following steps:
+To launch the app:
 
 1. Run the React client
 2. Run the backend server of your choice
 
-### Run React client
+### Run the React client
 
 1. Navigate to the app directory, `client-react/`.
 2. Run the application with the following command:
@@ -123,24 +123,22 @@ To launch the app you have to perform the following steps:
 
 The client will start on `localhost:3000`.
 
-### Run backend server
+### Run a backend server
 
-#### Grab an API Key
+To run the backend, you need to get an API key and then follow the
+configure-and-run instructions for *one* of the backend servers (Node.js,
+Python, or Go).
+
+#### Get an API Key
 
 Before you can use the Gemini API, you must first obtain an API key. If you
 don't already have one, create a key with one click in Google AI Studio.  
 
 <a class=button button-primary href=https://ai.google.dev/gemini-api/docs/api-key target=_blank rel=noopener noreferrer>Get an API key</a>
 
-Then refer to the instructions for your choice of backend in the following
-section.
+#### (Option 1) Configure and run the Node.js backend
 
-Note: You only need to run one of the backends. Follow the instructions for
-your backend server of choice: Node.js, Python, or Go.
-
-#### Configure and run Node.js backend
-
-##### Configure
+Configure the Node.js app:
 
 1. Navigate to the app directory, `server-js/`.
 2. Copy the `.env.example` file to `.env`.
@@ -153,9 +151,7 @@ your backend server of choice: Node.js, Python, or Go.
    GOOGLE_API_KEY=<your_api_key>
    ```
 
-##### Run the app
-
-To run the Node.js chat app, use the following command.
+Run the Node.js app:
 
 ```
 node --env-file=.env app.js
@@ -168,49 +164,40 @@ By default, the app will run on port 9000.
 To specify a custom port, edit the `PORT` key in your `.env` file,
 `PORT=xxxx`.
 
-**Note:** In case of a custom port, you must update the host URL in
-[React App.js](frontend/src/App.js#L36).
+**Note:** In case of a custom port, you must update the host URL specified in
+`client-react/src/App.js`.
 
-#### Configure and run Python/Flask backend
+#### (Option 2) Configure and run the Python backend
 
-##### Configure
+Configure the Python app:
 
 1. Navigate to the app directory, `server-python/`.
-2. Copy the `.env.example` file to `.env`.
+2. Make sure that you've activated the virtual environment as shown in the
+   installation steps.
+3. Copy the `.env.example` file to `.env`.
 
    ```
    cp .env.example .env
    ```
-3. Specify the Gemini API key for the variable `GOOGLE_API_KEY` in the `.env`
+4. Specify the Gemini API key for the variable `GOOGLE_API_KEY` in the `.env`
    file.
 
    ```
    GOOGLE_API_KEY=<your_api_key>
    ```
 
-##### Run the app
-
-Run the application with the following command:
+Run the Python app:
 
 ```
 python app.py
 ```
 The server will start on `localhost:9000`.
 
-#### Configure and run Go backend
-
-##### Configure
-
-You need a Gemini API key to run the server.
-
-If you don't have a Gemini API key ready, you can create a key with one click in
-[Google AI Studio](https://aistudio.google.com/app/apikey). You must set the API
-key as an environment variable while running the application.
-
-##### Run the app
+#### (Option 3) Configure and run the Go backend
 
 1. Navigate to the app directory, `server-go` (i.e. where main.go is located).
-2. Run the application with the following command.
+2. Run the application with the following command, replacing `<your_api_key>`
+   with your API key.
    ```
    GOOGLE_API_KEY=<your_api_key> go run .
    ```
