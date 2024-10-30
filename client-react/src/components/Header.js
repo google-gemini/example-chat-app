@@ -1,10 +1,9 @@
 import React from 'react';
-import geminiLogo from '../assets/gemini-logo.png';
 
 const Header = ({ toggled, setToggled }) => {
   return (
     <div className="chat-header">
-      <img src={geminiLogo} alt="Logo" />
+      <h1>Example chat app</h1>
       <span className='toggle-text'>Stream Response</span>
       <button 
         className={`toggle-btn ${toggled ? "toggled": ""}`}
