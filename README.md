@@ -115,7 +115,8 @@ To launch the app:
 ### Run the React client
 
 1. Navigate to the app directory, `client-react/`.
-2. Run the application with the following command:
+2. Run ```npm install```. Wait for the installation to complete.
+3. Run the application with the following command:
 
    ```
    npm run start
