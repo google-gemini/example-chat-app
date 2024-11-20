@@ -2,7 +2,7 @@
   "dependencies": {
     "@google/generative-ai": "^0.17.0",
     "cors": "^2.8.5",
-    "express": "^4.19.2"
+    "express": "^4.21.0"
   },
   "name": "node-gemini-chat",
   "version": "1.0.0",
