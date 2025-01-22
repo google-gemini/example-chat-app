@@ -16,7 +16,7 @@
     "react-dom": "^18.3.1",
     "react-markdown": "^9.0.1",
     "react-scripts": "^5.0.1",
-    "vite": "^5.4.6",
+    "vite": "^5.4.14",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
